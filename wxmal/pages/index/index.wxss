@@ -1,0 +1,95 @@
+.bd_list {
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  line-height: 110rpx;
+  text-align: center;
+}
+.mode_image {
+  width: 690rpx;
+  height: 330rpx;
+}
+
+
+.pdt-name {
+  display: block;
+  line-height: 66rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 800;
+  color: #333;
+}
+.pdt-price {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: red;
+  font-weight: 600;
+  font-family: Arial;
+}
+.home_ft {
+  height: 100rpx;
+  /* background-color: #fafafa; */
+  text-align: center;
+  color: #8c8c8c;
+  font-size: 0.7rem;
+  padding-top: 44rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.ft:after,.ft:before {
+  content: '';
+  width: 50rpx;
+  height: 1rpx;
+  background-color: #8c8c8c;
+  position: absolute;
+  top: 56rpx;
+}
+.ft:before {
+  left: 200rpx;
+}
+.ft:after {
+  right: 200rpx;
+}
+
+
+
+ .product-price-new{
+  color: #e80080;
+  margin-left:5px;
+  font-weight:900;
+}
+ .product-price-old{
+  color: #888;
+  text-decoration: line-through;
+  padding-left: 2px;
+}
+ .discount{
+  margin-left: 30px;
+  background-color: #000;
+  color: #fff;
+}
+
+
+.list-masonry{
+  column-count: 2;
+  column-gap: 20rpx;
+
+}
+.item-masonry{
+  background-color: #fff;
+  break-inside: avoid;
+  box-sizing: border-box;
+  padding: 20rpx;
+  margin-top:7px;
+ 
+}
+.item-masonry:nth-child(1){
+  margin-top: 0px;
+}
+.item-masonry image {
+  width: 100%;
+}

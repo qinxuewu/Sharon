@@ -1,0 +1,93 @@
+
+.VerticalNav.nav {
+  width: 200rpx;
+  white-space: initial;
+}
+
+.VerticalNav.nav .cu-item {
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  margin: 0;
+  border: none;
+  height: 50px;
+  position: relative;
+}
+
+.VerticalNav.nav .cu-item.cur {
+  background-color: #f1f1f1;
+}
+.VerticalNav.nav .cu-item.cur::after {
+  content: "";
+  width: 8rpx;
+  height: 30rpx;
+  border-radius: 10rpx 0 0 10rpx;
+  position: absolute;
+  background-color: currentColor;
+  top: 0;
+  right: 0rpx;
+  bottom: 0;
+  margin: auto;
+}
+.VerticalBox{
+  display: flex;
+}
+.VerticalMain{
+  background-color: #f1f1f1;
+}
+
+
+.pdt-name {
+  overflow: hidden;
+  /* white-space: nowrap; */
+  text-overflow: ellipsis;
+}
+.pdt-price {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: red;
+  font-weight: 600;
+  font-family: Arial;
+}
+.home_ft {
+  height: 100rpx;
+  /* background-color: #fafafa; */
+  text-align: center;
+  color: #8c8c8c;
+  font-size: 0.7rem;
+  padding-top: 44rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.ft:after,.ft:before {
+  content: '';
+  width: 50rpx;
+  height: 1rpx;
+  background-color: #8c8c8c;
+  position: absolute;
+  top: 56rpx;
+}
+.ft:before {
+  left: 200rpx;
+}
+.ft:after {
+  right: 200rpx;
+}
+
+
+
+ .product-price-new{
+  color: #e80080;
+  margin-left:5px;
+  font-weight:900;
+}
+ .product-price-old{
+  color: #888;
+  text-decoration: line-through;
+  padding-left: 2px;
+}
+ .discount{
+  margin-left: 30px;
+  background-color: #000;
+  color: #fff;
+}

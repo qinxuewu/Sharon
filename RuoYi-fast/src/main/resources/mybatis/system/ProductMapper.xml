@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.product.mapper.ProductMapper">
+    
+    <resultMap type="Product" id="ProductResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="title"    column="title"    />
+        <result property="newprice"    column="newprice"    />
+        <result property="oldprice"    column="oldprice"    />
+        <result property="details"    column="details"    />
+        <result property="img"    column="img"    />
+        <result property="status"    column="status"    />
+        <result property="cid"    column="cid"    />
+        <result property="category"    column="category"    />
+        <result property="recommend"    column="recommend"    />
+    </resultMap>
+	
+	<sql id="selectProductVo">
+        select id, create_time, title, newprice, oldprice, details, img,status,cid,recommend from pflm_product
+    </sql>
+	
+    <select id="selectProductList" parameterType="Product" resultMap="ProductResult">
+        select p.*,c.`name` as category  from pflm_product p left join pflm_category c on p.cid=c.id where 1=1
+
+             <if test="id != null "> and p.id = #{id}</if>
+             <if test="createTime != null "> and p.create_time = #{createTime}</if>
+             <if test="title != null  and title != '' "> and p.title = #{title}</if>
+             <if test="newprice != null  and newprice != '' "> and p.newprice = #{newprice}</if>
+             <if test="status != null  and status != '' "> and status = #{status}</if>
+             <if test="cid != null  and cid != '' "> and cid = #{cid}</if>
+             <if test="recommend != null  and recommend != '' "> and recommend = #{recommend}</if>
+              order by  p.status desc ,p.create_time desc
+    </select>
+    
+    <select id="selectProductById" parameterType="Integer" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProduct" parameterType="Product" useGeneratedKeys="true" keyProperty="id">
+        insert into pflm_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createTime != null  ">create_time,</if>
+			<if test="title != null  and title != ''  ">title,</if>
+			<if test="newprice != null  and newprice != ''  ">newprice,</if>
+			<if test="oldprice != null  and oldprice != ''  ">oldprice,</if>
+			<if test="details != null  and details != ''  ">details,</if>
+			<if test="img != null  and img != ''  ">img,</if>
+			<if test="cid != null  and cid != ''  ">cid,</if>
+            <if test="recommend != null  and recommend != ''  ">recommend,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="title != null  and title != ''  ">#{title},</if>
+			<if test="newprice != null  and newprice != ''  ">#{newprice},</if>
+			<if test="oldprice != null  and oldprice != ''  ">#{oldprice},</if>
+			<if test="details != null  and details != ''  ">#{details},</if>
+			<if test="img != null  and img != ''  ">#{img},</if>
+			<if test="cid != null  and cid != ''  ">#{cid},</if>
+            <if test="recommend != null  and recommend != ''  ">#{recommend},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateProduct" parameterType="Product">
+        update pflm_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="title != null  and title != ''  ">title = #{title},</if>
+            <if test="newprice != null  and newprice != ''  ">newprice = #{newprice},</if>
+            <if test="oldprice != null  and oldprice != ''  ">oldprice = #{oldprice},</if>
+            <if test="details != null  and details != ''  ">details = #{details},</if>
+            <if test="img != null  and img != ''  ">img = #{img},</if>
+            <if test="cid != null  and cid != ''  ">cid = #{cid},</if>
+            <if test="recommend != null ">recommend=#{recommend},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteProductById" parameterType="Integer">
+        delete from pflm_product where id = #{id}
+    </delete>
+	
+    <delete id="deleteProductByIds" parameterType="String">
+        delete from pflm_product where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,31 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-gradual-pink" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+       <view class='content'>首页</view>
+    </navigator>
+  </view>
+</view>
+
+<!--轮播图-->
+<swiper class="screen-swiper {{DotStyle?'square-dot':'round-dot'}}" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+  <swiper-item wx:for="{{imgUrls}}"  wx:key>
+    <image src="{{imgViewPath}}{{item.img}}" mode='aspectFill'></image>
+  </swiper-item>
+</swiper>
+ <view class="title">人气推荐</view>
+ <view class='list-masonry'>
+     <view class='item-masonry' wx:for="{{list}}" id="{{item.id}}" bindtap='details'>
+       <image src='{{imgViewPath}}{{item.logo}}' mode='widthFix'></image>
+       <text class="pdt-name">{{item.title}}</text>
+       <text class="pdt-price"  wx:if="{{item.newprice>0}}">¥{{item.newprice}}</text>
+       <p class="product-price-old"  wx:if="{{item.newprice>0}}">￥{{item.oldprice}}</p>
+     </view>
+ </view>
+<view class="home_ft">
+    <view class="ft">更多内容，敬请期待</view>
+</view>
+<view class='cu-load load-modal' wx:if="{{loadModal}}"> 
+    <!-- <view class='icon-emojifill text-orange'></view> -->
+    <image src='/libs/images/logo.png' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>加载中...</view>
+</view>

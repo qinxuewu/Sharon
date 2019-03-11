@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.product.mapper.BannerMapper">
+    
+    <resultMap type="Banner" id="BannerResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="img"    column="img"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="pid"    column="pid"    />
+        <result property="type"    column="type"    />
+    </resultMap>
+	
+	<sql id="selectBannerVo">
+        select id, name, img, create_time, pid,type from pflm_banner
+    </sql>
+	
+    <select id="selectBannerList" parameterType="Banner" resultMap="BannerResult">
+        <include refid="selectBannerVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="img != null  and img != '' "> and img = #{img}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="pid != null "> and pid = #{pid}</if>
+             <if test="type != null "> and type = #{type}</if>
+         </where>
+         order by create_time desc
+    </select>
+    
+    <select id="selectBannerById" parameterType="Integer" resultMap="BannerResult">
+        <include refid="selectBannerVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBanner" parameterType="Banner" useGeneratedKeys="true" keyProperty="id">
+        insert into pflm_banner
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null  and name != ''  ">name,</if>
+			<if test="img != null  and img != ''  ">img,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="pid != null  ">pid,</if>
+            <if test="type != null  ">type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="img != null  and img != ''  ">#{img},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="pid != null  ">#{pid},</if>
+            <if test="type != null  ">#{type},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateBanner" parameterType="Banner">
+        update pflm_banner
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="img != null  and img != ''  ">img = #{img},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="pid != null  ">pid = #{pid},</if>
+            <if test="type != null  ">type = #{pid},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteBannerById" parameterType="Integer">
+        delete from pflm_banner where id = #{id}
+    </delete>
+	
+    <delete id="deleteBannerByIds" parameterType="String">
+        delete from pflm_banner where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

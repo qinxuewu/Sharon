@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.process.mapper.ProcessMapper">
+
+    <resultMap type="Process" id="ProcessResult">
+        <result property="id"    column="id"    />
+        <result property="processNo"    column="process_no"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="employeeNo"    column="employee_no"    />
+        <result property="score"    column="score"    />
+        <result property="remark"    column="remark"    />
+        <result property="ticketNo"    column="ticket_no"    />
+    </resultMap>
+
+    <sql id="selectProcessVo">
+        select id, process_no, create_time, employee_no, score, remark, ticket_no from pflm_process
+    </sql>
+
+    <select id="selectProcessList" parameterType="Process" resultMap="ProcessResult">
+        <include refid="selectProcessVo"/>
+        <where>
+            <if test="id != null "> and id = #{id}</if>
+            <if test="processNo != null  and processNo != '' "> and process_no = #{processNo}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <if test="employeeNo != null  and employeeNo != '' "> and employee_no = #{employeeNo}</if>
+            <if test="score != null "> and score = #{score}</if>
+            <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+            <if test="ticketNo != null  and ticketNo != '' "> and ticket_no = #{ticketNo}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectProcessById" parameterType="Integer" resultMap="ProcessResult">
+        <include refid="selectProcessVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertProcess" parameterType="Process" useGeneratedKeys="true" keyProperty="id">
+        insert into pflm_process
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="processNo != null  and processNo != ''  ">process_no,</if>
+            <if test="createTime != null  ">create_time,</if>
+            <if test="employeeNo != null  and employeeNo != ''  ">employee_no,</if>
+            <if test="score != null  ">score,</if>
+            <if test="remark != null  and remark != ''  ">remark,</if>
+            <if test="ticketNo != null  and ticketNo != ''  ">ticket_no,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="processNo != null  and processNo != ''  ">#{processNo},</if>
+            <if test="createTime != null  ">#{createTime},</if>
+            <if test="employeeNo != null  and employeeNo != ''  ">#{employeeNo},</if>
+            <if test="score != null  ">#{score},</if>
+            <if test="remark != null  and remark != ''  ">#{remark},</if>
+            <if test="ticketNo != null  and ticketNo != ''  ">#{ticketNo},</if>
+        </trim>
+    </insert>
+
+    <update id="updateProcess" parameterType="Process">
+        update pflm_process
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="processNo != null  and processNo != ''  ">process_no = #{processNo},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="employeeNo != null  and employeeNo != ''  ">employee_no = #{employeeNo},</if>
+            <if test="score != null  ">score = #{score},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="ticketNo != null  and ticketNo != ''  ">ticket_no = #{ticketNo},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProcessById" parameterType="Integer">
+        delete from pflm_process where id = #{id}
+    </delete>
+
+    <delete id="deleteProcessByIds" parameterType="String">
+        delete from pflm_process where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectProcessStatistics" parameterType="Process" resultMap="ProcessResult">
+        select employee_no,SUM(score) as 'score'   from  pflm_process   where employee_no!='' and score >=0
+        <if test="employeeNo != null  and employeeNo != '' "> and employee_no = #{employeeNo}</if>
+        <if test="ticketNo != null  and ticketNo != '' "> and ticket_no = #{ticketNo}</if>
+        <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+            and date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+        </if>
+        <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+            and date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+        </if>
+        <if test="score != null "> and score = #{score}</if>
+        GROUP BY employee_no
+    </select>
+</mapper>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--360浏览器优先以webkit内核解析-->
+    <title>介绍</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/animate.min.css" th:href="@{/css/main/animate.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
+</head>
+
+<body class="gray-bg">
+    <div class="row  border-bottom white-bg dashboard-header">
+        <!--<div class="col-sm-3">-->
+            <!--<h2>Hello</h2>-->
+            <!--<small>移动设备访问请扫描以下二维码：</small>-->
+            <!--<br>-->
+            <!--<br>-->
+            <!--<img th:src="@{/img/qr_code.png}" width="100%" style="max-width:264px;">-->
+            <!--<br>-->
+        <!--</div>-->
+
+        <div class="col-sm-4">
+            <h4>技术选型：</h4>
+            <ol>
+                <li>核心框架：Spring Boot。</li>
+                <li>安全框架：Apache Shiro。</li>
+                <li>模板引擎：Thymeleaf。</li>
+                <li>持久层框架：MyBatis。</li>
+				<li>定时任务:Quartz。</li>
+                <li>数据库连接池：Druid。</li>
+                <li>工具类：Fastjson。</li>
+                <li>更多……</li>
+            </ol>
+        </div>
+
+    </div>
+    <!--<div class="wrapper wrapper-content">-->
+        <!--<div class="row">-->
+            <!--<div class="col-sm-4">-->
+
+                <!--<div class="ibox float-e-margins">-->
+                    <!--<div class="ibox-title">-->
+                        <!--<h5>联系信息</h5>-->
+
+                    <!--</div>-->
+                    <!--<div class="ibox-content">-->
+                        <!--<p><i class="fa fa-send-o"></i> 官网：<a href="https://gitee.com/qinxuewu" target="_blank">https://gitee.com/qinxuewu</a>-->
+                        <!--</p>-->
+                        <!--<p><i class="fa fa-qq"></i> QQ：</a>-->
+                        <!--</p>-->
+                        <!--<p><i class="fa fa-weixin"></i> 微信：</a></p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

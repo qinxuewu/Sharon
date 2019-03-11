@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "htmltowxml": "plugin://htmltowxml/view",
+      "poster": "/miniprogram_dist/poster/index"
+  }
+}

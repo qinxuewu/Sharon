@@ -1,0 +1,42 @@
+
+.pdt_info {
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 28rpx;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20rpx;
+}
+.info_title,info_ide {
+    line-height: 70rpx;
+}
+.info_title {
+    color: #313131;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.info_ide {
+    color: #c5c5c5;
+    font-weight: normal;
+    font-size: 0.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.info_bd {
+    padding-top: 30rpx;
+}
+.info_price {
+    font-size: 1.2rem;
+    color: red;
+    float: left;
+    line-height: 72rpx;
+}
+.info_des {
+    color: #c5c5c5;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 72rpx;
+}
+/* 固定底部悬浮导航 */
+.box{position: fixed;bottom:0rpx;width: 100%;}
+.details{margin-bottom: 53px;}

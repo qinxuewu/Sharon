@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            工票号：<input type="text" name="ticketNo" style="width: 100px"/>
+                        </li>
+                        <li>
+                            员工号：<input type="text" name="employeeNo" style="width: 100px"/>
+                        </li>
+
+                        <li class="select-time">
+                            <label>创建时间： </label>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+                        </li>
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+
+    var prefix = ctx + "system/statistics";
+
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            modalName: "工分统计",
+            search: false,
+            showExport: false,
+            columns: [
+                {
+                    field : 'employeeNo',
+                    title : '员工号',
+                    sortable: false
+                },
+                {
+                    field : 'score',
+                    title : '工分',
+                    sortable: false
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        var beginTime=$("#startTime").val();
+                        var endTime=$("#endTime").val();
+                        actions.push('<a target="_blank" class="btn btn-success btn-xs" href="'+prefix+'/export?employeeNo='+row.employeeNo+'&beginTime='+beginTime+'&endTime='+endTime+'"  shiro:hasPermission="system:statistics:export"><i class="fa fa-download"></i>导出清单</a> ');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+
+
+    });
+</script>
+</body>
+</html>

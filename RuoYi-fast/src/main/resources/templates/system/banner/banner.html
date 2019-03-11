@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:banner:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:banner:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var removeFlag = [[${@permission.hasPermi('system:banner:remove')}]];
+        var prefix = ctx + "system/banner";
+	
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                removeUrl: prefix + "/remove",
+                modalName: "广告banner",
+				search: false,
+		        showExport: false,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'id', 
+					title : '',
+					visible: false
+				},
+				{
+					field : 'name', 
+					title : 'banner名称',
+					sortable: false
+				},
+				{
+					field : 'img', 
+					title : '图片地址',
+					sortable: false,
+					formatter: function(value, row, index) {
+					     var imgpath ="/profile/upload/"+value;
+					      return '<img src="'+imgpath+'" style="width: 200px;">';
+					 }
+				},
+				{
+					field : 'createTime', 
+					title : '创建日期',
+					sortable: true
+				},
+
+   				{
+   				    field : 'type',
+   				    title : '所属分类',
+   				    sortable: false,
+                    formatter: function(value, row, index) {
+                       if(value==1){
+                           return '首页banner';
+					   }else{
+                           return '分类页banner';
+					   }
+
+                    }
+   				},
+				{
+					field : 'pid', 
+					title : '商品编号',
+					sortable: false
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
